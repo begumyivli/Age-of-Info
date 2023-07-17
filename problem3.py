@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize, Bounds, LinearConstraint
 import matplotlib.pyplot as plt
-#deneme
 
 def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> float:
     """
