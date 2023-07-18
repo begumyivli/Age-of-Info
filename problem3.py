@@ -48,9 +48,9 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
 
     return objective
 
-M = 5 # Number of updates
+M = 3 # Number of updates
 N = 1  # Time interval
-p_list = [0.5, 0.52, 0.54, 0.56, 0.58, 0.6, 0.63, 0.65, 0.68, 0.7, 0.73, 0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.87, 0.89, 0.92, 0.95, 0.97, 1]
+p_list =  np.linspace(0.5,1,100) #[0.5, 0.52, 0.54, 0.56, 0.58, 0.6, 0.63, 0.65, 0.68, 0.7, 0.73, 0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.87, 0.89, 0.92, 0.95, 0.97, 1]
 Z_list = [1,2,5,10]
 AoIs = {}
 
@@ -81,6 +81,7 @@ for i, z in enumerate(Z_list):
         result = minimize(lambda ys: objective(ys, z, p, M, N, AoIs), y0, bounds=bounds, constraints=linear_constraint)
         result_values.append(result.fun)  # Append the result value
         avg_aoi_values.append(AoIs[z])  # Calculate and append the avg_aoi value
+        # when result.x > 1e-5 bunu num. of updates ekle
         print(f"Z: {z}")
         print(f"p: {p}")
         print(f"Average Age of Information with penalty: {result.fun:.5f}")
