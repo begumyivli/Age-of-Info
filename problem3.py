@@ -50,7 +50,8 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
 
 M = 3 # Number of updates
 N = 1  # Time interval
-p_list =  np.linspace(0.5,1,100) #[0.5, 0.52, 0.54, 0.56, 0.58, 0.6, 0.63, 0.65, 0.68, 0.7, 0.73, 0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.87, 0.89, 0.92, 0.95, 0.97, 1]
+p_list =  np.linspace(0.5,1,20) #[0.5, 0.52, 0.54, 0.56, 0.58, 0.6, 0.63, 0.65, 0.68, 0.7, 0.73, 0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.87, 0.89, 0.92, 0.95, 0.97, 1]
+print(p_list)
 Z_list = [1,2,5,10]
 AoIs = {}
 
@@ -65,7 +66,7 @@ lower_bound = [1] # the trick to have the sum EQUAL to 1 is that you set the low
 upper_bound = [1]
 linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
 #created 2 seperate graphs
-fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
 
 x_values = np.linspace(0.5, 1, len(p_list))
 
@@ -76,12 +77,16 @@ line_styles = ['-', '--', '-.', ':']
 for i, z in enumerate(Z_list):
     result_values = []  # Store the result values for each p in p_list
     avg_aoi_values = []  # Store the avg_aoi values for each p in p_list
+    update_values = []
 
     for j, p in enumerate(p_list):
         result = minimize(lambda ys: objective(ys, z, p, M, N, AoIs), y0, bounds=bounds, constraints=linear_constraint)
         result_values.append(result.fun)  # Append the result value
         avg_aoi_values.append(AoIs[z])  # Calculate and append the avg_aoi value
-        # when result.x > 1e-5 bunu num. of updates ekle
+        
+        num_updates = sum([1 for val in result.x if val > 1e-5])
+        update_values.append(num_updates)
+
         print(f"Z: {z}")
         print(f"p: {p}")
         print(f"Average Age of Information with penalty: {result.fun:.5f}")
@@ -90,13 +95,17 @@ for i, z in enumerate(Z_list):
 
     ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
     ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+    ax3.plot(x_values, update_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
 
 # Customize the tick labels on the x-axis
 ax1.set_xticks(x_values)
 ax1.set_xticklabels([round(x, 2) for x in x_values])
 ax2.set_xticks(x_values)
 ax2.set_xticklabels([round(x, 2) for x in x_values])
+ax3.set_xticks(x_values)
+ax3.set_xticklabels([round(x, 2) for x in x_values])
 
+ax1.set_xlabel("Probability (p)")
 ax1.set_ylabel("Result")
 ax1.legend()
 ax1.set_title(f"Graph of the Minimal Penalty with update number of: {M}")
@@ -105,6 +114,11 @@ ax2.set_xlabel("Probability (p)")
 ax2.set_ylabel("Avg AOI")
 ax2.legend()
 ax2.set_title(f"Graph of Avg AOI with update number of: {M}")
+
+ax3.set_xlabel("Probability (p)")
+ax3.set_ylabel("Number of Updates")
+ax3.legend()
+ax3.set_title("Graph of Number of Updates")
 
 plt.tight_layout()
 plt.show()
