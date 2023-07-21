@@ -13,7 +13,7 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
     Z: int
         penalty for the paralellogram area.
     p: float
-        success probability.
+        error probability.
     M: int
         number of updates.
     N: int
@@ -40,7 +40,7 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
     for i in range(M+1):
         triangle_area += (y[i]**2) / 2 # triangle area
         for j in range(i+1, M+1):
-            paralellogram_area += y[i] * y[j] * (1 - p)**(j - i) # paralelogram area Zyi eklemen gerek??
+            paralellogram_area += y[i] * y[j] * (p)**(j - i) # I am using p as a error probability
 
     objective = (triangle_area + Z*paralellogram_area)/N
     avg_aoi = (triangle_area + paralellogram_area)/N
@@ -48,9 +48,9 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
 
     return objective
 
-M = 3 # Number of updates
+M = 7 # Number of updates
 N = 1  # Time interval
-p_list =  np.linspace(0.5,1,20) #[0.5, 0.52, 0.54, 0.56, 0.58, 0.6, 0.63, 0.65, 0.68, 0.7, 0.73, 0.75, 0.77, 0.79, 0.81, 0.83, 0.85, 0.87, 0.89, 0.92, 0.95, 0.97, 1]
+p_list =  np.linspace(0.0,0.5,20) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
 print(p_list)
 Z_list = [1,2,5,10]
 AoIs = {}
@@ -65,37 +65,48 @@ A = np.ones((1, M+1))
 lower_bound = [1] # the trick to have the sum EQUAL to 1 is that you set the lower limit to 1 and the upper limit also to 1
 upper_bound = [1]
 linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
-#created 2 seperate graphs
+
+# creating 3 separate graphs thanks to different axes
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
 
-x_values = np.linspace(0.5, 1, len(p_list))
+x_values = np.linspace(0.0, 0.5, len(p_list))
 
 line_styles = ['-', '--', '-.', ':']
 
 #x_values = np.arange(len(p_list)) bunu kullanma equally spaced sebep oluyor
+file1 = open("results M:"+str(M)+".txt",'w')
 
 for i, z in enumerate(Z_list):
     result_values = []  # Store the result values for each p in p_list
     avg_aoi_values = []  # Store the avg_aoi values for each p in p_list
-    update_values = []
+    interval_values = []
 
     for j, p in enumerate(p_list):
         result = minimize(lambda ys: objective(ys, z, p, M, N, AoIs), y0, bounds=bounds, constraints=linear_constraint)
         result_values.append(result.fun)  # Append the result value
         avg_aoi_values.append(AoIs[z])  # Calculate and append the avg_aoi value
         
-        num_updates = sum([1 for val in result.x if val > 1e-5])
-        update_values.append(num_updates)
+        valid_interval = sum([1 for val in result.x if val > 1e-5])
+        interval_values.append(valid_interval)
+        num_of_updates = valid_interval-1
 
-        print(f"Z: {z}")
-        print(f"p: {p}")
-        print(f"Average Age of Information with penalty: {result.fun:.5f}")
-        print(f"Average Age of Information without penalty: {AoIs[z]:.5f}")
-        print(f"Optimal interupdate times: {result.x} \n") 
+        file1.write(f"Z:{z} ")
+        file1.write(f"p:{p} ")
+        file1.write(f"Number of Updates:{num_of_updates} ")
+        file1.write(f"Average Age of Information with penalty:{result.fun:.5f} ")
+        file1.write(f"Average Age of Information without penalty:{AoIs[z]:.5f} ")
+        file1.write(f"Optimal interupdate times: {result.x} \n") 
+    file1.write("\n")
 
-    ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-    ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-    ax3.plot(x_values, update_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+    if 2 in interval_values:
+        cutting_idx = interval_values.index(2) # used 2 here because if number of valid interval is 2 that means system just used 2 updates
+        ax1.plot(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        ax2.plot(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+    else:
+        ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+    ax3.plot(x_values, interval_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+    # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
 # Customize the tick labels on the x-axis
 ax1.set_xticks(x_values)
@@ -116,30 +127,12 @@ ax2.legend()
 ax2.set_title(f"Graph of Avg AOI with update number of: {M}")
 
 ax3.set_xlabel("Probability (p)")
-ax3.set_ylabel("Number of Updates")
+ax3.set_ylabel("Number of Valid Intervals\n(M+1)")
 ax3.legend()
-ax3.set_title("Graph of Number of Updates")
+ax3.set_title("Graph of Number of Valid Intervals")
 
 plt.tight_layout()
 plt.show()
-
-""" for z in Z_list:
-    result_values = []  # Store the result values for each p in p_list
-    avg_aoi_values = []  # Store the avg_aoi values for each p in p_list
-    for p in p_list:
-        result = minimize(lambda y0: objective(y0, z), y0, bounds=bounds, constraints=linear_constraint)
-        result_values.append(result.fun)  # Append the result value
-        avg_aoi_values.append(avg_aoi)  # Append the avg_aoi value
-
-    plt.plot(p_list, result_values, label="Z = " + str(z))
-    plt.plot(p_list, avg_aoi_values, label="Avg AOI, Z = " + str(z), linestyle="--")
-
-plt.xlabel("Probability (p)")
-plt.ylabel("Result / Avg AOI")
-plt.legend()
-plt.title("Graph of the Minimal Penalty")
-
-plt.show() """
 
 
 # fun: The optimal value of the objective function obtained after the optimization process
