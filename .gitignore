@@ -1,0 +1,8 @@
+.DS_Store
+
+/output
+
+*.log
+
+.env
+config.ini

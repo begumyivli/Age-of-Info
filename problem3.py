@@ -97,9 +97,17 @@ for i, z in enumerate(Z_list):
         file1.write(f"Average Age of Information without penalty:{AoIs[z]:.5f} ")
         file1.write(f"Optimal interupdate times: {result.x} \n") 
     file1.write("\n")
+    print(interval_values)
 
-    if 2 in interval_values:
-        cutting_idx = interval_values.index(2) # used 2 here because if number of valid interval is 2 that means system just used 2 updates
+    cutting_idx = 0
+    my_bool = False
+    for j in range(len(interval_values)):
+        if interval_values[j] <= M:
+            my_bool = True
+            cutting_idx = j
+            break
+    
+    if my_bool:
         ax1.plot(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
         ax2.plot(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
     else:
