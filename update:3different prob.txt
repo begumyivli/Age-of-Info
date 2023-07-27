@@ -1,8 +1,16 @@
 Z:1 p:[0, 0.1, 0.2] Number of Updates:3 Average Age of Information with penalty:0.14588 Average Age of Information without penalty:0.14588 Optimal interupdate times: [0.28787006 0.26063517 0.21615149 0.23534328] 
+Z:1 p:[0.1, 0, 0.2] Number of Updates:3 Average Age of Information with penalty:0.14641 Average Age of Information without penalty:0.14641 Optimal interupdate times: [0.26534712 0.25707146 0.24618209 0.23139933] 
+Z:1 p:[0.1, 0.2, 0] Number of Updates:3 Average Age of Information with penalty:0.14471 Average Age of Information without penalty:0.14471 Optimal interupdate times: [0.25821263 0.21694637 0.23527247 0.28956853] 
 
 Z:2 p:[0, 0.1, 0.2] Number of Updates:3 Average Age of Information with penalty:0.16386 Average Age of Information without penalty:0.14732 Optimal interupdate times: [0.32017929 0.27449008 0.17468954 0.2306411 ] 
+Z:2 p:[0.1, 0, 0.2] Number of Updates:3 Average Age of Information with penalty:0.16717 Average Age of Information without penalty:0.14674 Optimal interupdate times: [0.27874188 0.26149184 0.25052626 0.20924002] 
+Z:2 p:[0.1, 0.2, 0] Number of Updates:3 Average Age of Information with penalty:0.16154 Average Age of Information without penalty:0.14612 Optimal interupdate times: [0.26924546 0.17699401 0.23077124 0.32298929] 
 
 Z:5 p:[0, 0.1, 0.2] Number of Updates:2 Average Age of Information with penalty:0.19211 Average Age of Information without penalty:0.17271 Optimal interupdate times: [0.37183026 0.32316132 0.         0.30500842] 
+Z:5 p:[0.1, 0, 0.2] Number of Updates:2 Average Age of Information with penalty:0.21429 Average Age of Information without penalty:0.18162 Optimal interupdate times: [0.28585231 0.28565935 0.42848834 0.        ] 
+Z:5 p:[0.1, 0.2, 0] Number of Updates:2 Average Age of Information with penalty:0.18750 Average Age of Information without penalty:0.17187 Optimal interupdate times: [0.31228149 0.         0.31278215 0.37493636] 
 
 Z:10 p:[0, 0.1, 0.2] Number of Updates:2 Average Age of Information with penalty:0.21511 Average Age of Information without penalty:0.17600 Optimal interupdate times: [0.40854949 0.32296498 0.         0.26848553] 
+Z:10 p:[0.1, 0, 0.2] Number of Updates:2 Average Age of Information with penalty:0.25000 Average Age of Information without penalty:0.19795 Optimal interupdate times: [0.31834267 0.18167615 0.49998118 0.        ] 
+Z:10 p:[0.1, 0.2, 0] Number of Updates:2 Average Age of Information with penalty:0.20588 Average Age of Information without penalty:0.17472 Optimal interupdate times: [0.29419224 0.         0.29422644 0.41158132] 
 
