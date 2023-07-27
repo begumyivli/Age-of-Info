@@ -2,7 +2,7 @@ import numpy as np
 from scipy.optimize import minimize, Bounds, LinearConstraint
 import matplotlib.pyplot as plt
 
-def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> float:
+def objective(y:np.ndarray, Z:int, p:list, M:int, N:int, avg_aois:dict={}) -> float:
     """
     Objective function for the optimization problem.
 
@@ -40,19 +40,18 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
     for i in range(M+1):
         triangle_area += (y[i]**2) / 2 # triangle area
         for j in range(i+1, M+1):
-            paralellogram_area += y[i] * y[j] * (p)**(j - i) # I am using p as a error probability
+            paralellogram_area += y[i] * y[j] * (p[j-1])**(j - i) # I am using p as a error probability
 
     objective = (triangle_area + Z*paralellogram_area)/N
     avg_aoi = (triangle_area + paralellogram_area)/N
     avg_aois[Z] = avg_aoi # save the average AoI with Z as key
     
-
     return objective
 
-M = 5 # Number of updates
+M = 3 # Number of updates
 N = 1  # Time interval
 #p_list =  np.linspace(0.0,0.5,20) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
-p_list = [0.25]
+p_list = [[0, 0.1, 0.2]]
 Z_list = [1,2,5,10]
 AoIs = {}
 
@@ -76,7 +75,7 @@ line_styles = ['-', '--', '-.', ':']
 
 #x_values = np.arange(len(p_list)) bunu kullanma equally spaced sebep oluyor
 #file1 = open("results M:"+str(M)+".txt",'w')
-file1 = open("update:"+str(M)+"equal prob.txt",'w')
+file1 = open("update:"+str(M)+"different prob.txt",'w')
 
 for i, z in enumerate(Z_list):
     result_values = []  # Store the result values for each p in p_list
@@ -145,11 +144,3 @@ ax3.set_title("Graph of Number of Valid Intervals")
 
 plt.tight_layout()
 plt.show()
-
-
-# fun: The optimal value of the objective function obtained after the optimization process
-# x: The optimal solution, i.e., the values of the variables that minimize the objective function
-# nit: The number of iterations performed during the optimization process
-# jac: The Jacobian of the objective function at the optimal solution. This represents the gradient of the objective function with respect to each variable
-# nfev: The number of evaluations of the objective function
-# njev: The number of evaluations of the Jacobian (gradient) of the objective function

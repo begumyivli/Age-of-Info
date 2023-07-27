@@ -1,0 +1,109 @@
+Z:1 p:0.0 Number of Updates:5 Average Age of Information with penalty:0.08333 Average Age of Information without penalty:0.08333 Optimal interupdate times: [0.16666667 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667] 
+Z:1 p:0.02631578947368421 Number of Updates:5 Average Age of Information with penalty:0.08705 Average Age of Information without penalty:0.08705 Optimal interupdate times: [0.16962909 0.16524313 0.16512779 0.16512779 0.16524313 0.16962909] 
+Z:1 p:0.05263157894736842 Number of Updates:5 Average Age of Information with penalty:0.09091 Average Age of Information without penalty:0.09091 Optimal interupdate times: [0.17266804 0.16389618 0.16343578 0.16343578 0.16389618 0.17266804] 
+Z:1 p:0.07894736842105263 Number of Updates:5 Average Age of Information with penalty:0.09491 Average Age of Information without penalty:0.09491 Optimal interupdate times: [0.17578236 0.16262497 0.16159267 0.16159267 0.16262497 0.17578236] 
+Z:1 p:0.10526315789473684 Number of Updates:5 Average Age of Information with penalty:0.09906 Average Age of Information without penalty:0.09906 Optimal interupdate times: [0.17923052 0.1604615  0.16030798 0.16030798 0.1604615  0.17923052] 
+Z:1 p:0.13157894736842105 Number of Updates:5 Average Age of Information with penalty:0.10337 Average Age of Information without penalty:0.10337 Optimal interupdate times: [0.182655  0.1588321 0.1585129 0.1585129 0.1588321 0.182655 ] 
+Z:1 p:0.15789473684210525 Number of Updates:5 Average Age of Information with penalty:0.10784 Average Age of Information without penalty:0.10784 Optimal interupdate times: [0.18619564 0.1571919  0.15661247 0.15661247 0.1571919  0.18619564] 
+Z:1 p:0.18421052631578946 Number of Updates:5 Average Age of Information with penalty:0.11250 Average Age of Information without penalty:0.11250 Optimal interupdate times: [0.18985287 0.1555516  0.15459553 0.15459553 0.1555516  0.18985287] 
+Z:1 p:0.21052631578947367 Number of Updates:5 Average Age of Information with penalty:0.11735 Average Age of Information without penalty:0.11735 Optimal interupdate times: [0.1938777  0.15306119 0.15306112 0.15306112 0.15306119 0.1938777 ] 
+Z:1 p:0.23684210526315788 Number of Updates:5 Average Age of Information with penalty:0.12240 Average Age of Information without penalty:0.12240 Optimal interupdate times: [0.19791708 0.15104158 0.15104135 0.15104135 0.15104157 0.19791708] 
+Z:1 p:0.2631578947368421 Number of Updates:5 Average Age of Information with penalty:0.12766 Average Age of Information without penalty:0.12766 Optimal interupdate times: [0.20212891 0.14893596 0.14893514 0.14893513 0.14893596 0.20212891] 
+Z:1 p:0.2894736842105263 Number of Updates:5 Average Age of Information with penalty:0.13315 Average Age of Information without penalty:0.13315 Optimal interupdate times: [0.20652562 0.14673876 0.14673562 0.14673562 0.14673875 0.20652562] 
+Z:1 p:0.3157894736842105 Number of Updates:5 Average Age of Information with penalty:0.13889 Average Age of Information without penalty:0.13889 Optimal interupdate times: [0.21112271 0.14444453 0.14443276 0.14443276 0.14444453 0.21112271] 
+Z:1 p:0.3421052631578947 Number of Updates:5 Average Age of Information with penalty:0.14489 Average Age of Information without penalty:0.14489 Optimal interupdate times: [0.21594097 0.14205044 0.1420086  0.1420086  0.14205043 0.21594096] 
+Z:1 p:0.3684210526315789 Number of Updates:5 Average Age of Information with penalty:0.15116 Average Age of Information without penalty:0.15116 Optimal interupdate times: [0.22100765 0.13956403 0.13942832 0.13942832 0.13956403 0.22100765] 
+Z:1 p:0.39473684210526316 Number of Updates:5 Average Age of Information with penalty:0.15774 Average Age of Information without penalty:0.15774 Optimal interupdate times: [0.22635068 0.13702012 0.1366292  0.1366292  0.13702012 0.22635068] 
+Z:1 p:0.42105263157894735 Number of Updates:5 Average Age of Information with penalty:0.16463 Average Age of Information without penalty:0.16463 Optimal interupdate times: [0.23197885 0.13450046 0.13352069 0.13352069 0.13450046 0.23197885] 
+Z:1 p:0.4473684210526315 Number of Updates:5 Average Age of Information with penalty:0.17188 Average Age of Information without penalty:0.17188 Optimal interupdate times: [0.23763    0.13123967 0.13113034 0.13113034 0.13123967 0.23762999] 
+Z:1 p:0.47368421052631576 Number of Updates:5 Average Age of Information with penalty:0.17949 Average Age of Information without penalty:0.17949 Optimal interupdate times: [0.24382998 0.1282104  0.12795963 0.12795963 0.1282104  0.24382998] 
+Z:1 p:0.5 Number of Updates:5 Average Age of Information with penalty:0.18750 Average Age of Information without penalty:0.18750 Optimal interupdate times: [0.25037348 0.12505059 0.12457593 0.12457593 0.12505059 0.25037348] 
+
+Z:2 p:0.0 Number of Updates:5 Average Age of Information with penalty:0.08333 Average Age of Information without penalty:0.08333 Optimal interupdate times: [0.16666667 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667] 
+Z:2 p:0.02631578947368421 Number of Updates:5 Average Age of Information with penalty:0.09075 Average Age of Information without penalty:0.08707 Optimal interupdate times: [0.17259151 0.16381958 0.1635889  0.1635889  0.16381958 0.17259151] 
+Z:2 p:0.05263157894736842 Number of Updates:5 Average Age of Information with penalty:0.09837 Average Age of Information without penalty:0.09097 Optimal interupdate times: [0.17894988 0.16009321 0.16095692 0.16095692 0.16009321 0.17894988] 
+Z:2 p:0.07894736842105263 Number of Updates:5 Average Age of Information with penalty:0.10622 Average Age of Information without penalty:0.09505 Optimal interupdate times: [0.18560345 0.15627958 0.15811697 0.15811697 0.15627958 0.18560345] 
+Z:2 p:0.10526315789473684 Number of Updates:5 Average Age of Information with penalty:0.11429 Average Age of Information without penalty:0.09933 Optimal interupdate times: [0.19285801 0.15130906 0.15583293 0.15583293 0.15130906 0.19285802] 
+Z:2 p:0.13157894736842105 Number of Updates:5 Average Age of Information with penalty:0.12258 Average Age of Information without penalty:0.10384 Optimal interupdate times: [0.20065773 0.14586927 0.153473   0.153473   0.14586927 0.20065773] 
+Z:2 p:0.15789473684210525 Number of Updates:5 Average Age of Information with penalty:0.13110 Average Age of Information without penalty:0.10861 Optimal interupdate times: [0.20921886 0.13943634 0.1513448  0.1513448  0.13943634 0.20921886] 
+Z:2 p:0.18421052631578946 Number of Updates:5 Average Age of Information with penalty:0.13984 Average Age of Information without penalty:0.11370 Optimal interupdate times: [0.21875404 0.13169644 0.14954952 0.14954952 0.13169644 0.21875404] 
+Z:2 p:0.21052631578947367 Number of Updates:5 Average Age of Information with penalty:0.14879 Average Age of Information without penalty:0.11920 Optimal interupdate times: [0.22956898 0.12218025 0.14825077 0.14825077 0.12218025 0.22956898] 
+Z:2 p:0.23684210526315788 Number of Updates:5 Average Age of Information with penalty:0.15792 Average Age of Information without penalty:0.12525 Optimal interupdate times: [0.24212864 0.11015418 0.14771719 0.14771719 0.11015417 0.24212863] 
+Z:2 p:0.2631578947368421 Number of Updates:5 Average Age of Information with penalty:0.16717 Average Age of Information without penalty:0.13213 Optimal interupdate times: [0.25719414 0.09440799 0.14839787 0.14839787 0.09440799 0.25719414] 
+Z:2 p:0.2894736842105263 Number of Updates:5 Average Age of Information with penalty:0.17644 Average Age of Information without penalty:0.14040 Optimal interupdate times: [0.27613294 0.07282501 0.15104205 0.15104205 0.07282501 0.27613295] 
+Z:2 p:0.3157894736842105 Number of Updates:5 Average Age of Information with penalty:0.18550 Average Age of Information without penalty:0.15138 Optimal interupdate times: [0.30100852 0.0409623  0.15802917 0.15802918 0.04096231 0.30100852] 
+Z:2 p:0.3421052631578947 Number of Updates:3 Average Age of Information with penalty:0.19384 Average Age of Information without penalty:0.16609 Optimal interupdate times: [3.31688357e-01 3.19839641e-18 1.68311641e-01 1.68311641e-01
+ 1.89735380e-19 3.31688361e-01] 
+Z:2 p:0.3684210526315789 Number of Updates:3 Average Age of Information with penalty:0.20205 Average Age of Information without penalty:0.17164 Optimal interupdate times: [3.40072728e-01 3.57786717e-18 1.59927273e-01 1.59927272e-01
+ 0.00000000e+00 3.40072727e-01] 
+Z:2 p:0.39473684210526316 Number of Updates:3 Average Age of Information with penalty:0.21075 Average Age of Information without penalty:0.17773 Optimal interupdate times: [0.34929975 0.         0.15070025 0.15070025 0.         0.34929975] 
+Z:2 p:0.42105263157894735 Number of Updates:3 Average Age of Information with penalty:0.21992 Average Age of Information without penalty:0.18447 Optimal interupdate times: [0.35957892 0.         0.14042107 0.14042109 0.         0.35957892] 
+Z:2 p:0.4473684210526315 Number of Updates:3 Average Age of Information with penalty:0.22956 Average Age of Information without penalty:0.19196 Optimal interupdate times: [0.37118457 0.         0.12881543 0.12881542 0.         0.37118457] 
+Z:2 p:0.47368421052631576 Number of Updates:3 Average Age of Information with penalty:0.23961 Average Age of Information without penalty:0.20039 Optimal interupdate times: [3.84486592e-01 4.85722573e-16 1.15513408e-01 1.15513408e-01
+ 9.10729825e-16 3.84486592e-01] 
+Z:2 p:0.5 Number of Updates:3 Average Age of Information with penalty:0.25000 Average Age of Information without penalty:0.21000 Optimal interupdate times: [4.00000001e-01 3.04443970e-16 1.00000003e-01 9.99999947e-02
+ 4.51895465e-16 4.00000001e-01] 
+
+Z:5 p:0.0 Number of Updates:5 Average Age of Information with penalty:0.08333 Average Age of Information without penalty:0.08333 Optimal interupdate times: [0.16666667 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667] 
+Z:5 p:0.02631578947368421 Number of Updates:5 Average Age of Information with penalty:0.10166 Average Age of Information without penalty:0.08728 Optimal interupdate times: [0.18197815 0.15786169 0.16016016 0.16016016 0.15786169 0.18197815] 
+Z:5 p:0.05263157894736842 Number of Updates:5 Average Age of Information with penalty:0.12001 Average Age of Information without penalty:0.09204 Optimal interupdate times: [0.19981841 0.14407323 0.15610837 0.15610837 0.14407323 0.1998184 ] 
+Z:5 p:0.07894736842105263 Number of Updates:5 Average Age of Information with penalty:0.13808 Average Age of Information without penalty:0.09854 Optimal interupdate times: [0.222909   0.12160207 0.15548892 0.15548892 0.12160207 0.222909  ] 
+Z:5 p:0.10526315789473684 Number of Updates:5 Average Age of Information with penalty:0.15501 Average Age of Information without penalty:0.11066 Optimal interupdate times: [0.2586555  0.07857981 0.16276469 0.16276469 0.07857981 0.2586555 ] 
+Z:5 p:0.13157894736842105 Number of Updates:3 Average Age of Information with penalty:0.16739 Average Age of Information without penalty:0.14065 Optimal interupdate times: [3.16943991e-01 0.00000000e+00 1.83056007e-01 1.83056007e-01
+ 1.38777878e-17 3.16943996e-01] 
+Z:5 p:0.15789473684210525 Number of Updates:3 Average Age of Information with penalty:0.17686 Average Age of Information without penalty:0.14532 Optimal interupdate times: [3.28857529e-01 1.07878116e-17 1.71142470e-01 1.71142475e-01
+ 1.16822784e-16 3.28857526e-01] 
+Z:5 p:0.18421052631578946 Number of Updates:3 Average Age of Information with penalty:0.18676 Average Age of Information without penalty:0.15068 Optimal interupdate times: [0.34125931 0.         0.15874069 0.15874068 0.         0.34125931] 
+Z:5 p:0.21052631578947367 Number of Updates:3 Average Age of Information with penalty:0.19706 Average Age of Information without penalty:0.15689 Optimal interupdate times: [0.35452408 0.         0.14547592 0.14547592 0.         0.35452408] 
+Z:5 p:0.23684210526315788 Number of Updates:3 Average Age of Information with penalty:0.20769 Average Age of Information without penalty:0.16394 Optimal interupdate times: [3.68325779e-01 2.72460006e-16 1.31674222e-01 1.31674222e-01
+ 1.53306187e-16 3.68325778e-01] 
+Z:5 p:0.2631578947368421 Number of Updates:3 Average Age of Information with penalty:0.21851 Average Age of Information without penalty:0.17233 Optimal interupdate times: [3.83765733e-01 0.00000000e+00 1.16234262e-01 1.16234275e-01
+ 3.47595216e-16 3.83765729e-01] 
+Z:5 p:0.2894736842105263 Number of Updates:3 Average Age of Information with penalty:0.22932 Average Age of Information without penalty:0.18242 Optimal interupdate times: [4.01156453e-01 1.78459678e-16 9.88435351e-02 9.88435649e-02
+ 8.11200065e-16 4.01156447e-01] 
+Z:5 p:0.3157894736842105 Number of Updates:3 Average Age of Information with penalty:0.23976 Average Age of Information without penalty:0.19486 Optimal interupdate times: [0.42122037 0.         0.07877963 0.07877965 0.         0.42122036] 
+Z:5 p:0.3421052631578947 Number of Updates:3 Average Age of Information with penalty:0.24931 Average Age of Information without penalty:0.21069 Optimal interupdate times: [4.44976075e-01 8.26595736e-16 5.50239184e-02 5.50239342e-02
+ 9.33281230e-16 4.44976072e-01] 
+Z:5 p:0.3684210526315789 Number of Updates:3 Average Age of Information with penalty:0.25711 Average Age of Information without penalty:0.23166 Optimal interupdate times: [4.73934886e-01 8.31799907e-16 2.60651144e-02 2.60651144e-02
+ 1.15424163e-15 4.73934886e-01] 
+Z:5 p:0.39473684210526316 Number of Updates:1 Average Age of Information with penalty:0.26198 Average Age of Information without penalty:0.25240 Optimal interupdate times: [0.5 0.  0.  0.  0.  0.5] 
+Z:5 p:0.42105263157894735 Number of Updates:1 Average Age of Information with penalty:0.26654 Average Age of Information without penalty:0.25331 Optimal interupdate times: [5.00000000e-01 1.11022302e-16 1.14491749e-16 9.02056208e-17
+ 1.38777878e-17 5.00000000e-01] 
+Z:5 p:0.4473684210526315 Number of Updates:1 Average Age of Information with penalty:0.27240 Average Age of Information without penalty:0.25448 Optimal interupdate times: [4.99999995e-01 6.80011603e-16 2.32452946e-16 4.16333634e-17
+ 6.24500451e-16 5.00000005e-01] 
+Z:5 p:0.47368421052631576 Number of Updates:1 Average Age of Information with penalty:0.27981 Average Age of Information without penalty:0.25596 Optimal interupdate times: [5.00000009e-01 1.88737914e-15 1.51961776e-15 1.48839274e-15
+ 1.63757896e-15 4.99999991e-01] 
+Z:5 p:0.5 Number of Updates:1 Average Age of Information with penalty:0.28906 Average Age of Information without penalty:0.25781 Optimal interupdate times: [4.99999997e-01 6.74460487e-15 5.53723734e-15 3.46944695e-15
+ 6.89726054e-15 5.00000003e-01] 
+
+Z:10 p:0.0 Number of Updates:5 Average Age of Information with penalty:0.08333 Average Age of Information without penalty:0.08333 Optimal interupdate times: [0.16666667 0.16666667 0.16666667 0.16666667 0.16666667 0.16666667] 
+Z:10 p:0.02631578947368421 Number of Updates:5 Average Age of Information with penalty:0.11921 Average Age of Information without penalty:0.08846 Optimal interupdate times: [0.19955151 0.14349844 0.15695005 0.15695005 0.14349845 0.1995515 ] 
+Z:10 p:0.05263157894736842 Number of Updates:5 Average Age of Information with penalty:0.15153 Average Age of Information without penalty:0.10555 Optimal interupdate times: [0.25919697 0.07419014 0.16661289 0.16661288 0.07419015 0.25919697] 
+Z:10 p:0.07894736842105263 Number of Updates:3 Average Age of Information with penalty:0.16808 Average Age of Information without penalty:0.13925 Optimal interupdate times: [0.32433523 0.         0.17566477 0.17566477 0.         0.32433523] 
+Z:10 p:0.10526315789473684 Number of Updates:3 Average Age of Information with penalty:0.18145 Average Age of Information without penalty:0.14645 Optimal interupdate times: [0.34371146 0.         0.15628854 0.15628854 0.         0.34371146] 
+Z:10 p:0.13157894736842105 Number of Updates:3 Average Age of Information with penalty:0.19477 Average Age of Information without penalty:0.15474 Optimal interupdate times: [3.62451423e-01 5.55111512e-16 1.37548578e-01 1.37548578e-01
+ 5.28656979e-16 3.62451421e-01] 
+Z:10 p:0.15789473684210525 Number of Updates:3 Average Age of Information with penalty:0.20800 Average Age of Information without penalty:0.16437 Optimal interupdate times: [0.38138395 0.         0.11861604 0.11861606 0.         0.38138395] 
+Z:10 p:0.18421052631578946 Number of Updates:3 Average Age of Information with penalty:0.22090 Average Age of Information without penalty:0.17579 Optimal interupdate times: [0.40128772 0.         0.09871227 0.0987123  0.         0.40128771] 
+Z:10 p:0.21052631578947367 Number of Updates:3 Average Age of Information with penalty:0.23303 Average Age of Information without penalty:0.18967 Optimal interupdate times: [4.22997468e-01 1.49828067e-14 7.70025586e-02 7.70024992e-02
+ 1.24310284e-14 4.22997475e-01] 
+Z:10 p:0.23684210526315788 Number of Updates:3 Average Age of Information with penalty:0.24363 Average Age of Information without penalty:0.20709 Optimal interupdate times: [0.447519   0.         0.05248103 0.05248098 0.         0.447519  ] 
+Z:10 p:0.2631578947368421 Number of Updates:3 Average Age of Information with penalty:0.25151 Average Age of Information without penalty:0.22974 Optimal interupdate times: [0.47618773 0.         0.02381223 0.02381234 0.         0.4761877 ] 
+Z:10 p:0.2894736842105263 Number of Updates:1 Average Age of Information with penalty:0.25508 Average Age of Information without penalty:0.25051 Optimal interupdate times: [0.5 0.  0.  0.  0.  0.5] 
+Z:10 p:0.3157894736842105 Number of Updates:1 Average Age of Information with penalty:0.25785 Average Age of Information without penalty:0.25079 Optimal interupdate times: [5.00000000e-01 8.32667268e-17 0.00000000e+00 0.00000000e+00
+ 0.00000000e+00 5.00000000e-01] 
+Z:10 p:0.3421052631578947 Number of Updates:1 Average Age of Information with penalty:0.26171 Average Age of Information without penalty:0.25117 Optimal interupdate times: [5.00000000e-01 8.32667268e-17 2.77555756e-17 0.00000000e+00
+ 2.77555756e-17 5.00000000e-01] 
+Z:10 p:0.3684210526315789 Number of Updates:1 Average Age of Information with penalty:0.26697 Average Age of Information without penalty:0.25170 Optimal interupdate times: [5.00000000e-01 0.00000000e+00 0.00000000e+00 8.32667268e-17
+ 0.00000000e+00 5.00000000e-01] 
+Z:10 p:0.39473684210526316 Number of Updates:1 Average Age of Information with penalty:0.27396 Average Age of Information without penalty:0.25240 Optimal interupdate times: [4.99999993e-01 1.38777878e-16 0.00000000e+00 2.77555756e-17
+ 0.00000000e+00 5.00000007e-01] 
+Z:10 p:0.42105263157894735 Number of Updates:1 Average Age of Information with penalty:0.28308 Average Age of Information without penalty:0.25331 Optimal interupdate times: [5.00000000e-01 0.00000000e+00 0.00000000e+00 5.55111512e-17
+ 0.00000000e+00 5.00000000e-01] 
+Z:10 p:0.4473684210526315 Number of Updates:1 Average Age of Information with penalty:0.29480 Average Age of Information without penalty:0.25448 Optimal interupdate times: [5.00000000e-01 3.60822483e-16 0.00000000e+00 0.00000000e+00
+ 0.00000000e+00 5.00000000e-01] 
+Z:10 p:0.47368421052631576 Number of Updates:1 Average Age of Information with penalty:0.30962 Average Age of Information without penalty:0.25596 Optimal interupdate times: [5.00000000e-01 0.00000000e+00 0.00000000e+00 0.00000000e+00
+ 8.32667268e-17 5.00000000e-01] 
+Z:10 p:0.5 Number of Updates:1 Average Age of Information with penalty:0.32813 Average Age of Information without penalty:0.25781 Optimal interupdate times: [5.00000000e-01 1.38777878e-16 0.00000000e+00 2.77555756e-17
+ 0.00000000e+00 5.00000000e-01] 
+
