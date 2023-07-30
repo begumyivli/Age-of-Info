@@ -80,7 +80,7 @@ for i, z in enumerate(Z_list):
     ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
     ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
 
-ax1.set_xlabel("Probability (p)")
+ax1.set_ylabel("Minimal Penalty Value")
 ax1.set_ylabel("Result")
 ax1.set_xscale('log')  # Set the x-axis to logarithmic scale
 ax1.legend()

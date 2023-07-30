@@ -52,7 +52,7 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
 M = 5 # Number of updates
 N = 1  # Time interval
 #p_list =  np.linspace(0.0,0.5,20) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
-p_list = [0.25]
+p_list = [0.10]
 Z_list = [1,2,5,10]
 AoIs = {}
 
@@ -129,7 +129,7 @@ ax3.set_xticks(x_ticks)
 ax3.set_xticklabels(x_tick_labels)
 
 ax1.set_xlabel("Probability (p)")
-ax1.set_ylabel("Result")
+ax1.set_ylabel("Minimal Penalty Value")
 ax1.legend()
 ax1.set_title(f"Graph of the Minimal Penalty with update number of: {M}")
 
@@ -144,7 +144,7 @@ ax3.legend()
 ax3.set_title("Graph of Number of Valid Intervals")
 
 plt.tight_layout()
-plt.show()
+#plt.show()
 
 
 # fun: The optimal value of the objective function obtained after the optimization process

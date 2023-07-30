@@ -50,97 +50,122 @@ def objective(y:np.ndarray, Z:int, p:list, M:int, N:int, avg_aois:dict={}) -> fl
 
 M = 3 # Number of updates
 N = 1  # Time interval
+open("update:"+str(M)+"different prob.txt", 'w').close()
 #p_list =  np.linspace(0.0,0.5,20) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
-p_list = [[0, 0.1, 0.2], [0.1, 0, 0.2], [0.1, 0.2, 0]]
-Z_list = [1,2,5,10]
-AoIs = {}
+pb_list = [0, 0.05, 0.1]
+for pb in pb_list:
+    p_list = [[pb, 0.15, 0.15], [0.15, pb, 0.15], [0.15, 0.15, pb]]
+    Z_list = [1,2,5,10]
+    AoIs = {}
 
-y0 = np.ones(M+1) / (M+1) # 0, ..., M, M update epochs, M+1 intervals
+    y0 = np.ones(M+1) / (M+1) # 0, ..., M, M update epochs, M+1 intervals
 
-lower_bounds = [0] * (M+1)
-upper_bounds = [1] * (M+1)
-bounds = Bounds(lower_bounds, upper_bounds)
+    lower_bounds = [0] * (M+1)
+    upper_bounds = [1] * (M+1)
+    bounds = Bounds(lower_bounds, upper_bounds)
 
-A = np.ones((1, M+1))
-lower_bound = [1] # the trick to have the sum EQUAL to 1 is that you set the lower limit to 1 and the upper limit also to 1
-upper_bound = [1]
-linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
+    A = np.ones((1, M+1))
+    lower_bound = [1] # the trick to have the sum EQUAL to 1 is that you set the lower limit to 1 and the upper limit also to 1
+    upper_bound = [1]
+    linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
 
-# creating 3 separate graphs thanks to different axes
-fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
+    colormap = plt.cm.get_cmap('tab10')
+    # creating 3 separate graphs thanks to different axes
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
 
-x_values = np.linspace(0.0, 0.5, len(p_list))
+    x_values = [1, 2, 3]
 
-line_styles = ['-', '--', '-.', ':']
+    line_styles = ['-', '--', '-.', ':']
 
-#x_values = np.arange(len(p_list)) bunu kullanma equally spaced sebep oluyor
-#file1 = open("results M:"+str(M)+".txt",'w')
-file1 = open("update:"+str(M)+"different prob.txt",'w')
+    file1 = open("update:"+str(M)+"different prob.txt",'a')
 
-for i, z in enumerate(Z_list):
-    result_values = []  # Store the result values for each p in p_list
-    avg_aoi_values = []  # Store the avg_aoi values for each p in p_list
-    interval_values = []
+    for i, z in enumerate(Z_list):
+        result_values = []  # Store the result values for each p in p_list
+        avg_aoi_values = []  # Store the avg_aoi values for each p in p_list
+        interval_values = []
 
-    for j, p in enumerate(p_list):
-        result = minimize(lambda ys: objective(ys, z, p, M, N, AoIs), y0, bounds=bounds, constraints=linear_constraint)
-        result_values.append(result.fun)  # Append the result value
-        avg_aoi_values.append(AoIs[z])  # Calculate and append the avg_aoi value
+        best_perm_idx_aoi = -1  # Index of the best permutation for average age of info
+        best_perm_idx_penalty = -1 # Index of the best permutation for penalty
+        best_avg_aoi = float('inf')  # Initialize with a large value
+        best_avg_pen = float('inf')
+
+
+        for j, p in enumerate(p_list):
+            result = minimize(lambda ys: objective(ys, z, p, M, N, AoIs), y0, bounds=bounds, constraints=linear_constraint)
+            result_values.append(result.fun)  # Append the result value
+            avg_aoi = AoIs[z]  # Calculate the avg_aoi value
+            avg_aoi_values.append(avg_aoi)
+            
+            valid_interval = sum([1 for val in result.x if val > 1e-5])
+            interval_values.append(valid_interval)
+            num_of_updates = valid_interval-1
+
+            file1.write(f"Z:{z} ")
+            file1.write(f"p:{p} ")
+            file1.write(f"Number of Updates:{num_of_updates} ")
+            file1.write(f"Average Age of Information with penalty:{result.fun:.5f} ")
+            file1.write(f"Average Age of Information without penalty:{AoIs[z]:.5f} ")
+            file1.write(f"Optimal interupdate times: {result.x} \n") 
+
+            if avg_aoi < best_avg_aoi:
+                best_avg_aoi = avg_aoi
+                best_perm_idx_aoi = j
+            
+            if result.fun < best_avg_pen:
+                best_avg_pen = result.fun
+                best_perm_idx_penalty = j
+
+        file1.write("\n")
+
+        cutting_idx = 0
+        my_bool = False
+        print(interval_values)
+        for j in range(len(interval_values)):
+            if interval_values[j] <= M:
+                my_bool = True
+                cutting_idx = j
+                break
         
-        valid_interval = sum([1 for val in result.x if val > 1e-5])
-        interval_values.append(valid_interval)
-        num_of_updates = valid_interval-1
+        color = colormap(i)
 
-        file1.write(f"Z:{z} ")
-        file1.write(f"p:{p} ")
-        file1.write(f"Number of Updates:{num_of_updates} ")
-        file1.write(f"Average Age of Information with penalty:{result.fun:.5f} ")
-        file1.write(f"Average Age of Information without penalty:{AoIs[z]:.5f} ")
-        file1.write(f"Optimal interupdate times: {result.x} \n") 
-    file1.write("\n")
+        if my_bool:
+            print(cutting_idx)
+            ax1.scatter(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), marker='o', color=color)
+            ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
+            ax2.scatter(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), marker='o', color=color)
+            ax2.scatter(x_values[best_perm_idx_aoi], avg_aoi_values[best_perm_idx_aoi], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
+        else:
+            ax1.scatter(x_values, result_values, label="Z = " + str(z), marker='o', color=color)
+            ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
+            ax2.scatter(x_values, avg_aoi_values, label="Z = " + str(z), marker='o', color=color)
+            ax2.scatter(x_values[best_perm_idx_aoi], avg_aoi_values[best_perm_idx_aoi], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
+        ax3.plot(x_values, interval_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
-    cutting_idx = 0
-    my_bool = False
-    for j in range(len(interval_values)):
-        if interval_values[j] <= M:
-            my_bool = True
-            cutting_idx = j
-            break
-    
-    if my_bool:
-        ax1.plot(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-        ax2.plot(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-    else:
-        ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-    ax3.plot(x_values, interval_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-    # if we want to plot whole graphs just comment the last part from print and use last 3 line
+    x_ticks = [1, 2, 3]
+    x_tick_labels = [str(x)+". permutation" for x in x_ticks]
 
-x_ticks = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
-x_tick_labels = [str(x) for x in x_ticks]
+    # Customize the tick labels on the x-axis
+    ax1.set_xticks(x_ticks)
+    ax1.set_xticklabels(x_tick_labels)
+    ax2.set_xticks(x_ticks)
+    ax2.set_xticklabels(x_tick_labels)
+    ax3.set_xticks(x_ticks)
+    ax3.set_xticklabels(x_tick_labels)
 
-# Customize the tick labels on the x-axis
-ax1.set_xticks(x_ticks)
-ax1.set_xticklabels(x_tick_labels)
-ax2.set_xticks(x_ticks)
-ax2.set_xticklabels(x_tick_labels)
-ax3.set_xticks(x_ticks)
-ax3.set_xticklabels(x_tick_labels)
+    ax1.set_xlabel("Probability permutations")
+    ax1.set_ylabel("Minimal Penalty Values")
+    ax1.set_title(f"Graph of the Minimal Penalty with update number of: {M}")
 
-ax1.set_xlabel("Probability (p)")
-ax1.set_ylabel("Result")
-ax1.legend()
-ax1.set_title(f"Graph of the Minimal Penalty with update number of: {M}")
+    ax2.set_xlabel("Probability permutations")
+    ax2.set_ylabel("Avg AOI")
+    ax2.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
+    ax2.set_title(f"Graph of Avg AOI with update number of: {M}")
 
-ax2.set_xlabel("Probability (p)")
-ax2.set_ylabel("Avg AOI")
-ax2.legend()
-ax2.set_title(f"Graph of Avg AOI with update number of: {M}")
+    ax3.set_xlabel("Probability permutations")
+    ax3.set_ylabel("Number of Valid Intervals\n(M+1)")
+    ax3.legend()
+    ax3.set_title("Graph of Number of Valid Intervals")
 
-ax3.set_xlabel("Probability (p)")
-ax3.set_ylabel("Number of Valid Intervals\n(M+1)")
-ax3.legend()
-ax3.set_title("Graph of Number of Valid Intervals")
-
-plt.tight_layout()
-plt.show()
+    plt.tight_layout()
+    plt.show()
