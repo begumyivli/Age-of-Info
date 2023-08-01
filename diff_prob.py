@@ -48,13 +48,19 @@ def objective(y:np.ndarray, Z:int, p:list, M:int, N:int, avg_aois:dict={}) -> fl
     
     return objective
 
+## ALL PARAMETERS ARE HERE
 M = 3 # Number of updates
 N = 1  # Time interval
+
 open("update:"+str(M)+"different prob.txt", 'w').close()
-#p_list =  np.linspace(0.0,0.5,20) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
-pb_list = [0, 0.05, 0.1]
-for pb in pb_list:
-    p_list = [[pb, 0.15, 0.15], [0.15, pb, 0.15], [0.15, 0.15, pb]]
+
+main_p = 0.15
+additional_probs = [0, 0.05, 0.1]
+## ALL PARAMETERS ARE HERE
+
+for p1 in additional_probs:
+    p_list = [[p1 if i == j else main_p for i in range(M)] for j in range(M)]
+
     Z_list = [1,2,5,10]
     AoIs = {}
 
@@ -73,7 +79,7 @@ for pb in pb_list:
     # creating 3 separate graphs thanks to different axes
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
 
-    x_values = [1, 2, 3]
+    x_values = [k for k in range(1, M + 1)]
 
     line_styles = ['-', '--', '-.', ':']
 
@@ -119,17 +125,19 @@ for pb in pb_list:
 
         cutting_idx = 0
         my_bool = False
-        print(interval_values)
+
+        #print(interval_values)
         for j in range(len(interval_values)):
             if interval_values[j] <= M:
                 my_bool = True
                 cutting_idx = j
                 break
-        
+        #print(my_bool)
+        #print(cutting_idx)
+
         color = colormap(i)
 
         if my_bool:
-            print(cutting_idx)
             ax1.scatter(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), marker='o', color=color)
             ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
             ax2.scatter(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), marker='o', color=color)
@@ -139,10 +147,14 @@ for pb in pb_list:
             ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
             ax2.scatter(x_values, avg_aoi_values, label="Z = " + str(z), marker='o', color=color)
             ax2.scatter(x_values[best_perm_idx_aoi], avg_aoi_values[best_perm_idx_aoi], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
+        
+        ax1.grid(True)
+        ax2.grid(True)
+        
         ax3.plot(x_values, interval_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
         # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
-    x_ticks = [1, 2, 3]
+    x_ticks = [k for k in range(1, M + 1)]
     x_tick_labels = [str(x)+". permutation" for x in x_ticks]
 
     # Customize the tick labels on the x-axis
@@ -154,17 +166,17 @@ for pb in pb_list:
     ax3.set_xticklabels(x_tick_labels)
 
     ax1.set_xlabel("Probability permutations")
-    ax1.set_ylabel("Minimal Penalty Values")
-    ax1.set_title(f"Graph of the Minimal Penalty with update number of: {M}")
+    ax1.set_ylabel("Minimal Penalty")
+    ax1.set_title(f"Min. Penalty with update number of: {M} with p:{main_p}, p1:{p1}")
 
     ax2.set_xlabel("Probability permutations")
     ax2.set_ylabel("Avg AOI")
     ax2.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
-    ax2.set_title(f"Graph of Avg AOI with update number of: {M}")
+    ax2.set_title(f"Avg AOI with update number of: {M} with p:{main_p}, p1:{p1}")
 
     ax3.set_xlabel("Probability permutations")
-    ax3.set_ylabel("Number of Valid Intervals\n(M+1)")
-    ax3.legend()
+    ax3.set_ylabel("Num. of Valid Intervals\n(M+1)")
+    ax3.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
     ax3.set_title("Graph of Number of Valid Intervals")
 
     plt.tight_layout()
