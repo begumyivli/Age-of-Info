@@ -54,26 +54,28 @@ N = 1  # Time interval
 
 open("update:"+str(M)+"different prob.txt", 'w').close()
 
-main_p = 0.15
-additional_probs = [0, 0.05, 0.1]
+additional_probs = [0, 0.02, 0.04]
+main_p = 0.3 # when we use different probabilities for same update number, they start to converge earlier
+
 ## ALL PARAMETERS ARE HERE
+
+Z_list = [1,2,5,10]
+AoIs = {}
+
+y0 = np.ones(M+1) / (M+1) # 0, ..., M, M update epochs, M+1 intervals
+
+lower_bounds = [0] * (M+1)
+upper_bounds = [1] * (M+1)
+bounds = Bounds(lower_bounds, upper_bounds)
+
+A = np.ones((1, M+1))
+lower_bound = [1] # the trick to have the sum EQUAL to 1 is that you set the lower limit to 1 and the upper limit also to 1
+upper_bound = [1]
+linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
+
 
 for p1 in additional_probs:
     p_list = [[p1 if i == j else main_p for i in range(M)] for j in range(M)]
-
-    Z_list = [1,2,5,10]
-    AoIs = {}
-
-    y0 = np.ones(M+1) / (M+1) # 0, ..., M, M update epochs, M+1 intervals
-
-    lower_bounds = [0] * (M+1)
-    upper_bounds = [1] * (M+1)
-    bounds = Bounds(lower_bounds, upper_bounds)
-
-    A = np.ones((1, M+1))
-    lower_bound = [1] # the trick to have the sum EQUAL to 1 is that you set the lower limit to 1 and the upper limit also to 1
-    upper_bound = [1]
-    linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
 
     colormap = plt.cm.get_cmap('tab10')
     # creating 3 separate graphs thanks to different axes
@@ -97,6 +99,8 @@ for p1 in additional_probs:
 
 
         for j, p in enumerate(p_list):
+            print(p_list)
+            print(p)
             result = minimize(lambda ys: objective(ys, z, p, M, N, AoIs), y0, bounds=bounds, constraints=linear_constraint)
             result_values.append(result.fun)  # Append the result value
             avg_aoi = AoIs[z]  # Calculate the avg_aoi value
@@ -138,15 +142,15 @@ for p1 in additional_probs:
         color = colormap(i)
 
         if my_bool:
-            ax1.scatter(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), marker='o', color=color)
-            ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
-            ax2.scatter(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), marker='o', color=color)
-            ax2.scatter(x_values[best_perm_idx_aoi], avg_aoi_values[best_perm_idx_aoi], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
+            ax1.scatter(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), marker='o', facecolors='none', edgecolors=color)
+            ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50, facecolors='none', edgecolors=color)
+            ax2.scatter(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), marker='o', facecolors='none', edgecolors=color)
+            ax2.scatter(x_values[best_perm_idx_aoi], avg_aoi_values[best_perm_idx_aoi], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50, facecolors='none', edgecolors=color)
         else:
-            ax1.scatter(x_values, result_values, label="Z = " + str(z), marker='o', color=color)
-            ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
-            ax2.scatter(x_values, avg_aoi_values, label="Z = " + str(z), marker='o', color=color)
-            ax2.scatter(x_values[best_perm_idx_aoi], avg_aoi_values[best_perm_idx_aoi], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50)
+            ax1.scatter(x_values, result_values, label="Z = " + str(z), marker='o', facecolors='none', edgecolors=color)
+            ax1.scatter(x_values[best_perm_idx_penalty], result_values[best_perm_idx_penalty], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50, facecolors='none', edgecolors=color)
+            ax2.scatter(x_values, avg_aoi_values, label="Z = " + str(z), marker='o', facecolors='none', edgecolors=color)
+            ax2.scatter(x_values[best_perm_idx_aoi], avg_aoi_values[best_perm_idx_aoi], label="Best permutation (Z = " + str(z) + ")", marker='D', s=50, facecolors='none', edgecolors=color)
         
         ax1.grid(True)
         ax2.grid(True)
