@@ -85,7 +85,7 @@ for p1 in additional_probs:
 
     line_styles = ['-', '--', '-.', ':']
 
-    file1 = open("update:"+str(M)+"different prob.txt",'a')
+    file1 = open("outputs/update/update:"+str(M)+"different prob.txt",'a')
 
     for i, z in enumerate(Z_list):
         result_values = []  # Store the result values for each p in p_list
@@ -157,6 +157,9 @@ for p1 in additional_probs:
         
         ax3.plot(x_values, interval_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
         # if we want to plot whole graphs just comment the last part from print and use last 3 line
+
+    # remember to close the file when you're done writing to it
+    file1.close()
 
     x_ticks = [k for k in range(1, M + 1)]
     x_tick_labels = [str(x)+". permutation" for x in x_ticks]

@@ -76,7 +76,7 @@ line_styles = ['-', '--', '-.', ':']
 
 #x_values = np.arange(len(p_list)) bunu kullanma equally spaced sebep oluyor
 #file1 = open("results M:"+str(M)+".txt",'w')
-file1 = open("update:"+str(M)+"equal prob.txt",'w')
+file1 = open("outputs/update/update:"+str(M)+"equal prob.txt",'w')
 
 for i, z in enumerate(Z_list):
     result_values = []  # Store the result values for each p in p_list
@@ -116,6 +116,9 @@ for i, z in enumerate(Z_list):
         ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
     ax3.plot(x_values, interval_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
     # if we want to plot whole graphs just comment the last part from print and use last 3 line
+
+# remember to close the file after writing
+file1.close()
 
 x_ticks = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
 x_tick_labels = [str(x) for x in x_ticks]

@@ -50,6 +50,14 @@ def objective(y:np.ndarray, Z:int, p:list, M:int, N:int, avg_aois:dict={}) -> fl
 
 M = 3 # Number of updates
 N = 1  # Time interval
+marker_translations = {-1: '', # no result -> no marker
+                       0: 'o',
+                       1: 's',
+                       2: 'D'}
+color_translations = {-1: 'b', # no result -> no color
+                      0: 'k',
+                      1: 'g',
+                      2: 'r'}
 
 p1_list = [0, 0.03, 0.05, 0.07, 0.1]
 for p1 in p1_list:
@@ -76,39 +84,40 @@ for p1 in p1_list:
 
     line_styles = ['-', '--', '-.', ':']
 
-    file1 = open("update:"+str(M)+"different prob.txt",'w')
+    file1 = open("outputs/update/update:"+str(M)+"different prob.txt",'w')
 
     for i, z in enumerate(Z_list):
         result_values = []  # Store the result values for each p in p_list
         avg_aoi_values = []  # Store the avg_aoi values for each p in p_list
         how_many_updates = []
+        markers = [] # Store the markers of the best permutation
 
-        for j, p in enumerate(main_p):
+        for p in main_p:
             p_list = [[p1 if a == b else p for a in range(M)] for b in range(M)]
 
-            best_result_value = float('inf')
-            best_avg_aoi_value = float('inf')
+            best_result_value = np.inf
+            best_avg_aoi_value = np.inf
+            best_marker = -1
             less_than_M = 0
             complete_update = 0
-            my_bool = False
+            cut = False
             
-            for lst in p_list:
+            for idx, lst in enumerate(p_list):
                 result = minimize(lambda ys: objective(ys, z, lst, M, N, AoIs), y0, bounds=bounds, constraints=linear_constraint)
                 
                 # Here, i am looking a permutation used how many updates, if it is less than M i increment the variable
-                # If all the permutations used less than M, then we should cut the plots here
                 num_of_updates = sum([1 for val in result.x if val > 1e-5])-1
                 if num_of_updates < M:
                     less_than_M += 1
+                # all permutations used less than M, so we should cut the plots here
                 if less_than_M == M:
-                    cutting_idx = j
-                    my_bool = True
                     break
 
-                # If a permutation uses all updates, even if other versions doesn't use we should uuse it's value as a best result
+                # If a permutation uses all updates, even if other versions doesn't use we should use it's value as a best result
                 if num_of_updates == M:
                     if result.fun < best_result_value:
                         best_result_value = result.fun
+                        best_marker = idx # save the marker of the best permutation
                     if AoIs[z] < best_avg_aoi_value:
                         best_avg_aoi_value = AoIs[z]
                     complete_update += 1
@@ -120,21 +129,27 @@ for p1 in p1_list:
                 file1.write(f"Average Age of Information without penalty:{AoIs[z]:.5f} ")
                 file1.write(f"Optimal interupdate times: {result.x} \n") 
 
-
             result_values.append(best_result_value)  # Append the result value
             avg_aoi_values.append(best_avg_aoi_value)  # Calculate and append the avg_aoi value
             how_many_updates.append(complete_update) # How many permutation used all updates
+            markers.append(best_marker) # Append the marker of the best permutation
 
         file1.write("\n")
+        # translate the markers
+        colors = [color_translations[m] for m in markers]
+        markers = [marker_translations[m] for m in markers]
         
-        if my_bool:
-            ax1.plot(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-            ax2.plot(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-        else:
-            ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-            ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        # plot markers
+        for x, y, m, c in zip(x_values, result_values, markers, colors):
+            ax1.plot(x, y, marker=m, fillstyle='none', color=c)
+
+        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
         ax3.plot(x_values, how_many_updates, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
         # if we want to plot whole graphs just comment the last part from print and use last 3 line
+
+    # Remember to close the file when you're done writing to it
+    file1.close()
 
     x_ticks = np.linspace(p1, 0.5, 6) # We should start the leftmost point from p1
     decimal_places = 2
@@ -142,28 +157,32 @@ for p1 in p1_list:
     x_tick_labels = [str(x) for x in x_ticks]
 
     # Customize the tick labels on the x-axis
-    ax1.set_xticks(x_ticks)
-    ax1.set_xticklabels(x_tick_labels)
-    ax2.set_xticks(x_ticks)
-    ax2.set_xticklabels(x_tick_labels)
+    #ax1.set_xticks(x_ticks)
+    #ax1.set_xticklabels(x_tick_labels)
+    #ax2.set_xticks(x_ticks)
+    #ax2.set_xticklabels(x_tick_labels)
+    ax1.set_xlim(0, 0.5)
+    ax2.set_xlim(0, 0.5)
+    
+    # fix the legend of ax1 with the markers
+    handles, labels = ax1.get_legend_handles_labels()
+    handles.append(plt.Line2D([], [], color='k', marker='o', linestyle='None', fillstyle='none'))
+    handles.append(plt.Line2D([], [], color='g', marker='s', linestyle='None', fillstyle='none'))
+    handles.append(plt.Line2D([], [], color='r', marker='D', linestyle='None', fillstyle='none'))
+    labels.extend(["Permutation A", "Permutation B", "Permutation C"])
 
-    ax1.set_xlabel("Probability (p)")
     ax1.set_ylabel("Minimal Penalty Value")
-    ax1.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
-    ax1.set_title(f"Graph of the Minimal Penalty with update number of: {M} with p1: {p1}")
+    ax1.legend(handles, labels, ncols=2, loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
+    ax1.set_title(f"p1: {p1}")
 
-    ax2.set_xlabel("Probability (p)")
     ax2.set_ylabel("Avg AOI")
     ax2.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
-    ax2.set_title(f"Graph of Avg AOI with update number of: {M} with p1: {p1}")
 
-    ax3.set_xlabel("Probability (p)")
+    ax3.set_xlabel("Probability of update error (p)")
     ax3.set_ylabel(f"Number of updates")
     ax3.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
-    ax3.set_title(f"Number of Permutations that makes {M} update")
 
-    plt.tight_layout()
-    plt.show()
+    fig.savefig(f"outputs/plots/p1_{p1}_updates_{M}.png", bbox_inches='tight', pad_inches=0)
 
 
 # fun: The optimal value of the objective function obtained after the optimization process
