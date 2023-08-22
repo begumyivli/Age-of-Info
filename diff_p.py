@@ -60,11 +60,12 @@ color_translations = {-1: 'b', # no result -> no color
                       2: 'r'}
 
 p1_list = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.1]
+
 for p1 in p1_list:
     file1 = open("outputs/update/update:"+str(M)+"prob:"+str(p1)+"different prob.txt",'w')
-    main_p =  np.linspace(p1,0.5,20) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
-
-    Z_list = [1,2,5,10]
+    main_p =  np.linspace(p1,0.5,100) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
+    # did a finer scale for Z=10
+    Z_list = [10]
     AoIs = {}
 
     y0 = np.ones(M+1) / (M+1) # 0, ..., M, M update epochs, M+1 intervals
