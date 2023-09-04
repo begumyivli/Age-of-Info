@@ -68,7 +68,7 @@ upper_bound = [1]
 linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
 
 # creating 3 separate graphs thanks to different axes
-fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=False)
 
 x_values = np.linspace(0.0, 0.5, len(p_list))
 

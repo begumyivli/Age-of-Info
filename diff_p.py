@@ -65,8 +65,9 @@ for p1 in p1_list:
     file1 = open("outputs/update/update:"+str(M)+"prob:"+str(p1)+"different prob.txt",'w')
     main_p =  np.linspace(p1,0.5,100) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
     # did a finer scale for Z=10
-    Z_list = [10]
+    Z_list = [1,2,5,10]
     AoIs = {}
+    worst_AoIs = {}
 
     y0 = np.ones(M+1) / (M+1) # 0, ..., M, M update epochs, M+1 intervals
 
@@ -80,14 +81,19 @@ for p1 in p1_list:
     linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
 
     # creating 3 separate graphs thanks to different axes
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=False)
 
     x_values = np.linspace(p1, 0.5, len(main_p))
 
-    line_styles = ['-', '--', '-.', ':']
+    #line_styles = ['-', '--', '-.', ':']
+    line_colors = ['blue','orange','purple','brown']
 
 
     for i, z in enumerate(Z_list):
+
+        worst_lst = [1 for k in range(M)]
+        worst_result = minimize(lambda ys: objective(ys, z, worst_lst, M, N, worst_AoIs), y0, bounds=bounds, constraints=linear_constraint)
+
         result_values = []  # Store the result values for each p in p_list
         avg_aoi_values = []  # Store the avg_aoi values for each p in p_list
         how_many_updates = []
@@ -139,29 +145,33 @@ for p1 in p1_list:
         # translate the markers
         colors = [color_translations[m] for m in markers]
         markers = [marker_translations[m] for m in markers]
-        
-        ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+
+        ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+        ax1.axhline(y=worst_result.fun, linestyle='--', color=line_colors[i % len(line_colors)], linewidth=1, label=f'Upper Bound for Z:{str(z)}')
         # plot markers
         for x, y, m, c in zip(x_values, result_values, markers, colors):
             ax1.plot(x, y, marker=m, fillstyle='none', color=c)
 
-        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-        ax3.plot(x_values, how_many_updates, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+        ax2.axhline(y=worst_AoIs[z], linestyle='--', color=line_colors[i % len(line_colors)], linewidth=1, label=f'Upper Bound for Z:{str(z)}')
+        ax3.plot(x_values, how_many_updates, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
         # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
     # Remember to close the file when you're done writing to it
     file1.close()
 
-    x_ticks = np.linspace(p1, 0.5, 6) # We should start the leftmost point from p1
+    x_ticks = np.linspace(0, 0.5, 6) # We should start the leftmost point from p1
     decimal_places = 2
     x_ticks = np.around(x_ticks, decimals=decimal_places)
     x_tick_labels = [str(x) for x in x_ticks]
 
     # Customize the tick labels on the x-axis
-    #ax1.set_xticks(x_ticks)
-    #ax1.set_xticklabels(x_tick_labels)
-    #ax2.set_xticks(x_ticks)
-    #ax2.set_xticklabels(x_tick_labels)
+    ax1.set_xticks(x_ticks)
+    ax1.set_xticklabels(x_tick_labels)
+    ax2.set_xticks(x_ticks)
+    ax2.set_xticklabels(x_tick_labels)
+    ax3.set_xticks(x_ticks)
+    ax3.set_xticklabels(x_tick_labels)
     ax1.set_xlim(0, 0.5)
     ax2.set_xlim(0, 0.5)
     
@@ -180,9 +190,10 @@ for p1 in p1_list:
     ax2.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
 
     ax3.set_xlabel("Probability of update error (p)")
-    ax3.set_ylabel(f"Number of updates")
+    ax3.set_ylabel(f"Number of permutations \n used all M updates", fontsize=10)
     ax3.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
 
+    #plt.setp([a.get_xticklabels() for a in fig.axes[:-1]], visible=True)
     fig.savefig(f"outputs/plots/p1_{p1}_updates_{M}.png", bbox_inches='tight', pad_inches=0)
 
 

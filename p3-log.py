@@ -68,7 +68,7 @@ linear_constraint = LinearConstraint(A, lower_bound, upper_bound)
 
 line_styles = ['-', '--', '-.', ':']
 
-fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
+fig, (ax1, ax2) = plt.subplots(2, 1, sharex=False)
 for i, z in enumerate(Z_list):
     result_values = []
     avg_aoi_values = []
