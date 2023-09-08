@@ -68,11 +68,15 @@ upper_bound = [1]
 linear_constraint = LinearConstraint(A, lower_bound, upper_bound) 
 
 # creating 3 separate graphs thanks to different axes
-fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=False)
+#fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=False)
+fig1, ax1 = plt.subplots()
+fig2, ax2 = plt.subplots()
+#fig3, ax3 = plt.subplots()
 
 x_values = np.linspace(0.0, 0.5, len(p_list))
 
-line_styles = ['-', '--', '-.', ':']
+#line_styles = ['-', '--', '-.', ':']
+line_colors = ['blue','orange','purple','brown']
 
 #x_values = np.arange(len(p_list)) bunu kullanma equally spaced sebep oluyor
 #file1 = open("results M:"+str(M)+".txt",'w')
@@ -109,12 +113,14 @@ for i, z in enumerate(Z_list):
             break
     
     if my_bool:
-        ax1.plot(x_values[:cutting_idx], result_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-        ax2.plot(x_values[:cutting_idx], avg_aoi_values[:cutting_idx], label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        ax1.plot(x_values[:cutting_idx+1], result_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+        ax1.plot(x_values[cutting_idx:], result_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)])
+        ax2.plot(x_values[:cutting_idx+1], avg_aoi_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+        ax2.plot(x_values[cutting_idx:], avg_aoi_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)])
     else:
-        ax1.plot(x_values, result_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
-    ax3.plot(x_values, interval_values, label="Z = " + str(z), linestyle=line_styles[i % len(line_styles)], color='blue')
+        ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+    #ax3.plot(x_values, interval_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
     # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
 # remember to close the file after writing
@@ -128,8 +134,8 @@ ax1.set_xticks(x_ticks)
 ax1.set_xticklabels(x_tick_labels)
 ax2.set_xticks(x_ticks)
 ax2.set_xticklabels(x_tick_labels)
-ax3.set_xticks(x_ticks)
-ax3.set_xticklabels(x_tick_labels)
+""" ax3.set_xticks(x_ticks)
+ax3.set_xticklabels(x_tick_labels) """
 
 ax1.set_xlabel("Probability (p)")
 ax1.set_ylabel("Minimal Penalty Value")
@@ -141,11 +147,11 @@ ax2.set_ylabel("Avg AOI")
 ax2.legend()
 ax2.set_title(f"Graph of Avg AOI with update number of: {M}")
 
-ax3.set_xlabel("Probability (p)")
+""" ax3.set_xlabel("Probability (p)")
 ax3.set_ylabel("Number of Valid Intervals\n(M+1)")
 ax3.legend()
 ax3.set_title("Graph of Number of Valid Intervals")
-
+ """
 plt.tight_layout()
 plt.show()
 
