@@ -1,3 +1,4 @@
+import matplotlib
 import numpy as np
 from scipy.optimize import minimize, Bounds, LinearConstraint
 import matplotlib.pyplot as plt
@@ -77,6 +78,7 @@ x_values = np.linspace(0.0, 0.5, len(p_list))
 
 #line_styles = ['-', '--', '-.', ':']
 line_colors = ['blue','orange','purple','brown']
+marker_styles = ['o', 'p', '^', 's'] 
 
 #x_values = np.arange(len(p_list)) bunu kullanma equally spaced sebep oluyor
 #file1 = open("results M:"+str(M)+".txt",'w')
@@ -113,13 +115,13 @@ for i, z in enumerate(Z_list):
             break
     
     if my_bool:
-        ax1.plot(x_values[:cutting_idx+1], result_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)])
-        ax1.plot(x_values[cutting_idx:], result_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)])
-        ax2.plot(x_values[:cutting_idx+1], avg_aoi_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)])
-        ax2.plot(x_values[cutting_idx:], avg_aoi_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)])
+        ax1.plot(x_values[:cutting_idx+1], result_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
+        ax1.plot(x_values[cutting_idx:], result_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
+        ax2.plot(x_values[:cutting_idx+1], avg_aoi_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
+        ax2.plot(x_values[cutting_idx:], avg_aoi_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
     else:
-        ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
-        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+        ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
+        ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
     #ax3.plot(x_values, interval_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
     # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
@@ -154,6 +156,10 @@ ax3.set_title("Graph of Number of Valid Intervals")
  """
 plt.tight_layout()
 plt.show()
+
+fig1.savefig(f"outputs/plots/penalty_updates_{M}.png", bbox_inches='tight', pad_inches=0)
+fig2.savefig(f"outputs/plots/aoi_updates_{M}.png", bbox_inches='tight', pad_inches=0)
+matplotlib.pyplot.close()
 
 
 # fun: The optimal value of the objective function obtained after the optimization process

@@ -89,7 +89,7 @@ for p1 in p1_list:
 
     #line_styles = ['-', '--', '-.', ':']
     line_colors = ['blue','orange','purple','brown']
-
+    marker_styles = ['o', 'p', '^', 's'] 
 
     for i, z in enumerate(Z_list):
 
@@ -159,17 +159,17 @@ for p1 in p1_list:
         #colors = [color_translations[m] for m in markers]
         #markers = [marker_translations[m] for m in markers]
         if cut_bool:
-            ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
-            ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+            ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
+            ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
         else:
-            ax1.plot(x_values[:cut_idx+1], result_values[:cut_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)])
-            ax1.plot(x_values[cut_idx:], result_values[cut_idx:], linestyle='--', label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+            ax1.plot(x_values[:cut_idx+1], result_values[:cut_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
+            ax1.plot(x_values[cut_idx:], result_values[cut_idx:], linestyle='--', label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
             # plot markers
             """ for x, y, m, c in zip(x_values, result_values, markers, colors):
                 ax1.plot(x, y, marker=m, fillstyle='none', color=c) """
 
-            ax2.plot(x_values[:cut_idx+1], avg_aoi_values[:cut_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)])
-            ax2.plot(x_values[cut_idx:], avg_aoi_values[cut_idx:], linestyle='--', label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+            ax2.plot(x_values[:cut_idx+1], avg_aoi_values[:cut_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
+            ax2.plot(x_values[cut_idx:], avg_aoi_values[cut_idx:], linestyle='--', label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
 
     # Remember to close the file when you're done writing to it
     file1.close()
