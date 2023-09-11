@@ -89,7 +89,7 @@ for p1 in p1_list:
 
     #line_styles = ['-', '--', '-.', ':']
     line_colors = ['blue','orange','purple','brown']
-    marker_styles = ['o', 'p', '^', 's'] 
+    marker_styles = ['o', 'p', 's', '^'] 
 
     for i, z in enumerate(Z_list):
 

@@ -78,7 +78,7 @@ x_values = np.linspace(0.0, 0.5, len(p_list))
 
 #line_styles = ['-', '--', '-.', ':']
 line_colors = ['blue','orange','purple','brown']
-marker_styles = ['o', 'p', '^', 's'] 
+marker_styles = ['o', 'p', 's', '^'] 
 
 #x_values = np.arange(len(p_list)) bunu kullanma equally spaced sebep oluyor
 #file1 = open("results M:"+str(M)+".txt",'w')
@@ -118,7 +118,7 @@ for i, z in enumerate(Z_list):
         ax1.plot(x_values[:cutting_idx+1], result_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
         ax1.plot(x_values[cutting_idx:], result_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
         ax2.plot(x_values[:cutting_idx+1], avg_aoi_values[:cutting_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
-        ax2.plot(x_values[cutting_idx:], avg_aoi_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
+        ax2.plot(x_values[cutting_idx:], avg_aoi_values[cutting_idx:], linestyle='--', color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1, markersize=24/(i+1))
     else:
         ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)
         ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=1)

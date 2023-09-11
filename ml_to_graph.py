@@ -53,7 +53,7 @@ import pickle
 with open("accuracy.pkl", "rb") as file:
     accuracy = pickle.load(file)
 
-M_values = [1,2,3,4,5,6] # Number of updates
+M_values = [1,2,3,4,5,6,7,8,9,10,11,12] # Number of updates
 N = 1  # Time interval
 p = 1-accuracy
 print(p)
