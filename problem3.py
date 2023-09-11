@@ -50,7 +50,7 @@ def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> f
 
     return objective
 
-M = 3 # Number of updates
+M = 6 # Number of updates
 N = 1  # Time interval
 p_list =  np.linspace(0.0,0.5,20) # For M=3, Z=2 around p=0.4 we can see that number of updates drop
 #p_list = [0.10]

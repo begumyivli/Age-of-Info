@@ -202,8 +202,8 @@ for p1 in p1_list:
     ax2.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
 
     #plt.setp([a.get_xticklabels() for a in fig.axes[:-1]], visible=True)
-    fig1.savefig(f"outputs/plots/penalty_p1_{p1}_updates_{M}.png", bbox_inches='tight', pad_inches=0)
-    fig2.savefig(f"outputs/plots/aoi_p1_{p1}_updates_{M}.png", bbox_inches='tight', pad_inches=0)
+    fig1.savefig(f"outputs/plots/permutations/penalty_p1_{p1}_updates_{M}.png", bbox_inches='tight', pad_inches=0)
+    fig2.savefig(f"outputs/plots/permutations/aoi_p1_{p1}_updates_{M}.png", bbox_inches='tight', pad_inches=0)
     matplotlib.pyplot.close()
 
 # fun: The optimal value of the objective function obtained after the optimization process
