@@ -88,7 +88,7 @@ for p1 in p1_list:
     x_values = np.linspace(p1, 0.5, len(main_p))
 
     #line_styles = ['-', '--', '-.', ':']
-    line_colors = ['blue','orange','purple','brown']
+    line_colors = ['b','g','r','c']
     marker_styles = ['o', 'p', 's', '^'] 
 
     for i, z in enumerate(Z_list):
@@ -186,6 +186,8 @@ for p1 in p1_list:
     ax2.set_xticklabels(x_tick_labels)
     ax1.set_xlim(0, 0.5)
     ax2.set_xlim(0, 0.5)
+    ax1.grid(True, alpha=0.5)
+    ax2.grid(True, alpha=0.5)
     
     # fix the legend of ax1 with the markers
     """ handles, labels = ax1.get_legend_handles_labels()

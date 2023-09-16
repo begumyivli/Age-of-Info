@@ -56,11 +56,11 @@ with open("accuracy.pkl", "rb") as file:
 M_values = [1,2,3,4,5,6,7,8,9,10,11,12] # Number of updates
 N = 1  # Time interval
 p = 1-accuracy
-print(p)
 Z_list = [1,2,5,10]
 AoIs = {}
 fig1, ax1 = plt.subplots()
-line_colors = ['blue','orange','purple','brown']
+line_colors = ['b','g','r','c']
+widths = [10,5,4,3]
 
 for i, z in enumerate(Z_list):
     result_values = []  
@@ -95,7 +95,7 @@ for i, z in enumerate(Z_list):
                 cutting_idx = j
                 break """
            
-    ax1.plot(M_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)])
+    ax1.plot(M_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], linewidth=widths[i % len(widths)])
     # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
 x_tick_labels = [str(M) for M in M_values]
@@ -103,6 +103,7 @@ x_tick_labels = [str(M) for M in M_values]
 # Customize the tick labels on the x-axis
 ax1.set_xticks(M_values)
 ax1.set_xticklabels(x_tick_labels)
+ax1.grid(True, alpha=0.5)
 
 ax1.set_xlabel("M values")
 ax1.set_ylabel("Minimal Penalty Value")
