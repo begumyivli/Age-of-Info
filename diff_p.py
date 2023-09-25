@@ -88,7 +88,7 @@ for p1 in p1_list:
     x_values = np.linspace(p1, 0.5, len(main_p))
 
     #line_styles = ['-', '--', '-.', ':']
-    line_colors = ['b','g','r','c']
+    line_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
     marker_styles = ['o', 'p', 's', '^'] 
 
     for i, z in enumerate(Z_list):
@@ -159,17 +159,17 @@ for p1 in p1_list:
         #colors = [color_translations[m] for m in markers]
         #markers = [marker_translations[m] for m in markers]
         if cut_bool:
-            ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
-            ax2.plot(x_values, avg_aoi_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
+            ax1.plot(x_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=0.2)
+            ax2.plot(x_values, avg_aoi_values, color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=0.2)
         else:
-            ax1.plot(x_values[:cut_idx+1], result_values[:cut_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
-            ax1.plot(x_values[cut_idx:], result_values[cut_idx:], linestyle='--', label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
+            ax1.plot(x_values[:cut_idx+1], result_values[:cut_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=0.2)
+            ax1.plot(x_values[cut_idx:], result_values[cut_idx:], linestyle='--', color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=0.2)
             # plot markers
             """ for x, y, m, c in zip(x_values, result_values, markers, colors):
                 ax1.plot(x, y, marker=m, fillstyle='none', color=c) """
 
             ax2.plot(x_values[:cut_idx+1], avg_aoi_values[:cut_idx+1], label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
-            ax2.plot(x_values[cut_idx:], avg_aoi_values[cut_idx:], linestyle='--', label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=10)
+            ax2.plot(x_values[cut_idx:], avg_aoi_values[cut_idx:], linestyle='--', color=line_colors[i % len(line_colors)], marker=marker_styles[i % len(marker_styles)], markevery=0.2)
 
     # Remember to close the file when you're done writing to it
     file1.close()
@@ -196,11 +196,13 @@ for p1 in p1_list:
     handles.append(plt.Line2D([], [], color='r', marker='D', linestyle='None', fillstyle='none'))
     labels.extend(["Permutation A", "Permutation B", "Permutation C"]) """
 
-    ax1.set_ylabel("Minimal Penalty Value")
+    ax1.set_xlabel("Error probability ($p$)")
+    ax1.set_ylabel("Minimum penalty")
     ax1.legend(ncols=2, loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
     ax1.set_title(f"p1: {p1}")
 
-    ax2.set_ylabel("Avg AOI")
+    ax2.set_xlabel("Error probability ($p$)")
+    ax2.set_ylabel(r"$\Delta(\mathbf{y})$")
     ax2.legend(loc='upper left', bbox_to_anchor=(1, 1), fontsize='small')
 
     #plt.setp([a.get_xticklabels() for a in fig.axes[:-1]], visible=True)

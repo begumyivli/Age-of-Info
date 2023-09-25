@@ -4,6 +4,16 @@ import matplotlib.pyplot as plt
 from scipy.optimize import minimize, Bounds, LinearConstraint
 from joblib import dump, load
 from sklearn.metrics import accuracy_score
+import matplotlib
+
+matplotlib.use('pgf')
+matplotlib.rcParams.update({
+    'pgf.texsystem': 'pdflatex',
+    'font.family': 'serif',
+    'font.size': 14,
+    'text.usetex': True,
+    'pgf.rcfonts': False,
+})
 
 def objective(y:np.ndarray, Z:int, p:float, M:int, N:int, avg_aois:dict={}) -> float:
     """
@@ -56,11 +66,14 @@ with open("accuracy.pkl", "rb") as file:
 M_values = [1,2,3,4,5,6,7,8,9,10,11,12] # Number of updates
 N = 1  # Time interval
 p = 1-accuracy
-Z_list = [1,2,5,10]
+print(p)
+Z_list = [1,2,5,10,15]
 AoIs = {}
-fig1, ax1 = plt.subplots()
-line_colors = ['b','g','r','c']
-widths = [10,5,4,3]
+results = []
+fig1 = plt.figure(1)
+ax1 = plt.gca()
+line_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+marker_styles = ['o', 'd', 's', '^', 'v']
 
 for i, z in enumerate(Z_list):
     result_values = []  
@@ -94,22 +107,25 @@ for i, z in enumerate(Z_list):
                 my_bool = True
                 cutting_idx = j
                 break """
-           
-    ax1.plot(M_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], linewidth=widths[i % len(widths)])
+    results.append(np.array(result_values))    
+    #ax1.plot(M_values, result_values, label="Z = " + str(z), color=line_colors[i % len(line_colors)], marker=marker_styles[i], markevery=0.2)
     # if we want to plot whole graphs just comment the last part from print and use last 3 line
 
 x_tick_labels = [str(M) for M in M_values]
 
+base = None
+for i, r in enumerate(results):
+    if i == 0: # skip baseline
+        base = r
+        continue
+    ax1.plot(M_values, r/base, label="Z = " + str(Z_list[i]), color=line_colors[i], marker=marker_styles[i], markevery=0.2)
 # Customize the tick labels on the x-axis
 ax1.set_xticks(M_values)
 ax1.set_xticklabels(x_tick_labels)
 ax1.grid(True, alpha=0.5)
 
-ax1.set_xlabel("M values")
-ax1.set_ylabel("Minimal Penalty Value")
+ax1.set_xlabel("Number of updates ($M$)")
+ax1.set_ylabel("Minimum penalty over baseline")
 ax1.legend()
-ax1.set_title(f"Graph of the Minimal Penalty")
 
-plt.tight_layout()
-plt.show()
-fig1.savefig(f"outputs/plots/penalty_ml_model.png", bbox_inches='tight', pad_inches=0)
+fig1.savefig(f"outputs/plots/penalty_ml_model.pgf", bbox_inches='tight', pad_inches=0)
